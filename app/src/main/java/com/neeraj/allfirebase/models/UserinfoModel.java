@@ -1,10 +1,10 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.models;
 
 import java.io.Serializable;
 
-public class Userinfo implements Serializable {
+public class UserinfoModel implements Serializable {
     String userName="",userEmail="",mobileNumber="";
-    public Userinfo()
+    public UserinfoModel()
     {
 
     }
@@ -33,7 +33,7 @@ public class Userinfo implements Serializable {
         this.mobileNumber = mobileNumber;
     }
 
-    public Userinfo(String name, String email, String mobile)
+    public UserinfoModel(String name, String email, String mobile)
     {
         userName=name;
         userEmail=email;

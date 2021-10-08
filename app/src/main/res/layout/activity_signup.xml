@@ -1,72 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:layout_height="match_parent"
-    tools:context=".signup">
+    tools:context=".activities.SignUpActivity">
 
     <EditText
+        android:layout_marginTop="100dp"
         android:hint="Enter Name"
-        android:id="@+id/e"
-        android:layout_width="wrap_content"
+        android:id="@+id/person_edt_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268" />
+      />
 
     <EditText
-        android:id="@+id/e1"
-        android:layout_width="wrap_content"
+        android:id="@+id/person_password_edt"
+        android:layout_width="match_parent"
         android:hint="Enter Password"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+     />
 
     <EditText
-        android:id="@+id/e2"
-        android:layout_width="wrap_content"
+        android:id="@+id/person_email_edt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46" />
+      />
 
     <Button
-        android:id="@+id/b"
-        android:layout_width="wrap_content"
+        android:id="@+id/signup_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Signup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568" />
+        />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/back_to_sign_textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Back To Login"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:gravity="center"
+       />
+</LinearLayout>

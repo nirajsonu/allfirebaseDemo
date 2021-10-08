@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,17 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookSdk;
-import com.facebook.ProfileTracker;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,15 +26,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.neeraj.allfirebase.R;
 
 public class MainActivity extends AppCompatActivity {
-TextView signup;
-EditText e,e1;
-Button log;
-TextView t,t1,fb;
+TextView otp_text;
+EditText person_email_edittext,person_username_edt;
+Button login_btn;
+TextView forgot_pass_txt,signup_text,fb_text;
 FirebaseAuth firebaseAuth;
 ProgressDialog pd;
-    private SignInButton signInButton;
+    private SignInButton google_sign_in_btn;
     private GoogleSignInClient mGoogleSignInClient;
     private  String TAG = "MainActivity";
     private FirebaseAuth mAuth;
@@ -51,21 +44,25 @@ ProgressDialog pd;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        signup=findViewById(R.id.sign);
-        t=findViewById(R.id.textView2);
-        e=findViewById(R.id.e);
-        e1=findViewById(R.id.e1);
-        log=findViewById(R.id.log);
-        t1=findViewById(R.id.otp);
-        fb=findViewById(R.id.fb);
+
+
+        signup_text=findViewById(R.id.signup_text);
+        forgot_pass_txt=findViewById(R.id.forgot_pass_txt);
+        person_email_edittext=findViewById(R.id.person_email_edittext);
+        person_username_edt=findViewById(R.id.person_username_edt);
+        login_btn=findViewById(R.id.login_btn);
+        otp_text=findViewById(R.id.otp_text);
+        fb_text=findViewById(R.id.fb_text);
         firebaseAuth=FirebaseAuth.getInstance();
+
+
         pd=new ProgressDialog(MainActivity.this);
-        signInButton=findViewById(R.id.goo);
+        google_sign_in_btn=findViewById(R.id.google_sign_in_btn);
         mAuth=FirebaseAuth.getInstance();
-        fb.setOnClickListener(new View.OnClickListener() {
+        fb_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this,fb.class);
+                Intent i=new Intent(MainActivity.this, FacebookActivity.class);
                 startActivity(i);
             }
         });
@@ -74,23 +71,23 @@ ProgressDialog pd;
                 .requestEmail()
                 .build();
         mGoogleSignInClient= GoogleSignIn.getClient(this,geo);
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        google_sign_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
-        t1.setOnClickListener(new View.OnClickListener() {
+        otp_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this,otp.class);
+                Intent i=new Intent(MainActivity.this, OtpActivity.class);
                 startActivity(i);
             }
         });
-        t.setOnClickListener(new View.OnClickListener() {
+        forgot_pass_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=e.getText().toString();
+                String email=person_email_edittext.getText().toString();
                 if(!email.equalsIgnoreCase(""))
                 {
                     firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -114,11 +111,12 @@ ProgressDialog pd;
 
             }
         });
-        log.setOnClickListener(new View.OnClickListener() {
+
+        login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=e.getText().toString().trim();
-                String pass=e1.getText().toString().trim();
+                String email=person_email_edittext.getText().toString().trim();
+                String pass=person_username_edt.getText().toString().trim();
                 if(!email.equalsIgnoreCase(""))
                 {
                if(!pass.equalsIgnoreCase(""))
@@ -136,10 +134,11 @@ ProgressDialog pd;
                 }
             }
         });
-        signup.setOnClickListener(new View.OnClickListener() {
+
+        signup_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this, com.neeraj.allfirebase.signup.class);
+                Intent i=new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(i);
             }
         });
@@ -155,7 +154,7 @@ ProgressDialog pd;
            {
                Toast.makeText(MainActivity.this,"Log in sucessfully",Toast.LENGTH_SHORT).show();
                pd.dismiss();
-               Intent i=new Intent(MainActivity.this,dash.class);
+               Intent i=new Intent(MainActivity.this, DashBoardActivity.class);
                startActivity(i);
                finish();
            }
@@ -205,7 +204,7 @@ ProgressDialog pd;
                     Toast.makeText(MainActivity.this, "Sucessfully", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     // updateUI(user);
-                    Intent i = new Intent(MainActivity.this, dash.class);
+                    Intent i = new Intent(MainActivity.this, DashBoardActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,52 +14,90 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.neeraj.allfirebase.R;
+import com.neeraj.allfirebase.models.usernotesModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class addnote extends AppCompatActivity {
-Button b;
-EditText e,e1;
+public class AddNoteActivity extends AppCompatActivity {
+
+
+//initialized the variables
+Button post_create_btn;
+EditText edt_name_text,edt_description_text;
 ProgressDialog pd;
 DatabaseReference databaseNotes;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addnote);
-        b=findViewById(R.id.b);
-        e=findViewById(R.id.e);
-        e1=findViewById(R.id.e1);
+
+        //initialized the views
+        post_create_btn=findViewById(R.id.post_create_btn);
+        edt_name_text=findViewById(R.id.edt_name_text);
+        edt_description_text=findViewById(R.id.edt_description_text);
+
+        //initialized progress dialog
         pd=new ProgressDialog(this);
+
+        //initialized database reference
         databaseNotes= FirebaseDatabase.getInstance().getReference("USERNOTES");
-        b.setOnClickListener(new View.OnClickListener() {
+
+        //Set Listeners
+        post_create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title=e.getText().toString();
-                String desc=e1.getText().toString();
+
+                //taking the inpur and convert to String
+                String title=edt_name_text.getText().toString();
+                String desc=edt_description_text.getText().toString();
+
+
+                //Storing current date
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-mmmm-yyyy");
+
+                //Take Calendar instance
                 Calendar calendar=Calendar.getInstance();
+
+                //todayDate
                 String todayDate=simpleDateFormat.format(calendar.getTime());
+
+                //Progressbar set title
                 pd.setTitle("Please wait");
+
+                //Progressbar show
                 pd.show();
+
+                //equalsIgnorecase for case sensitive string comparison.
                 if(!title.equalsIgnoreCase(""))
                 {
                     if(!desc.equalsIgnoreCase(""))
                     {
+                        //Getting the key of the current node.
                     String key=databaseNotes.push().getKey();
-                    usernotes u=new usernotes(title,desc,todayDate,key);
+
+                    //set value to userModel constuctor
+                    usernotesModel u=new usernotesModel(title,desc,todayDate,key);
+
+
+                    //setting the value to current node
                     databaseNotes.child(key).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                        if(task.isSuccessful())
                        {
-
-                           Toast.makeText(addnote.this,"Notes sucessfully created",Toast.LENGTH_LONG).show();
+                           //Success Callback
+                           Toast.makeText(AddNoteActivity.this,"Notes sucessfully created",Toast.LENGTH_LONG).show();
                            finish();
                            pd.dismiss();
                        }
                        else
-                       {  Toast.makeText(addnote.this,"error",Toast.LENGTH_LONG).show();
+                       {
+                           //Failure Callback
+                           Toast.makeText(AddNoteActivity.this,"error",Toast.LENGTH_LONG).show();
                            finish();
                            pd.dismiss();
 
@@ -68,11 +106,11 @@ DatabaseReference databaseNotes;
                     });
                     }
                     else {
-                        Toast.makeText(addnote.this,"Please Enter the description",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddNoteActivity.this,"Please Enter the description",Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
-                    Toast.makeText(addnote.this,"Please Enter the title",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNoteActivity.this,"Please Enter the title",Toast.LENGTH_LONG).show();
                 }
             }
         });

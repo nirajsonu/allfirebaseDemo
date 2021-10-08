@@ -13,22 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".fb"></activity>
+        <activity android:name=".activities.FacebookActivity">
+        </activity>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".de" />
-        <activity android:name=".addnote" />
-        <activity android:name=".otp" />
-        <activity android:name=".dash">
+        <activity android:name=".activities.TestActivity" />
+        <activity android:name=".activities.AddNoteActivity" />
+        <activity android:name=".activities.OtpActivity" />
+        <activity android:name=".activities.DashBoardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.MainActivity">
 
         </activity>
         <activity
@@ -47,7 +48,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-       <service android:name=".CustomMessagingService"
+       <service android:name=".service.CustomMessagingService"
            android:exported="false">
            <intent-filter>
                <action android:name="com.google.firebase.MESSAGING_EVENT"/>

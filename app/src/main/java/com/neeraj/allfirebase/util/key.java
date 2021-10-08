@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.util;
 
 import android.app.Application;
 import android.content.pm.PackageInfo;

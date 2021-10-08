@@ -1,10 +1,12 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class de extends AppCompatActivity {
+import com.neeraj.allfirebase.R;
+
+public class TestActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

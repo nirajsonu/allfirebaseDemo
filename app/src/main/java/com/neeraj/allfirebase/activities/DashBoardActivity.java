@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,48 +23,60 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.neeraj.allfirebase.R;
+import com.neeraj.allfirebase.models.usernotesModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class dash extends AppCompatActivity {
-    TextView t,t1;
-    Button b;
-    ListView l;
+public class DashBoardActivity extends AppCompatActivity {
+
+    TextView header_txt;
+    Button logout_btn;
+    ListView notes_listview;
     ProgressDialog pd;
     DatabaseReference databaseReference;
-    FloatingActionButton f;
+    FloatingActionButton fab_btn;
     ArrayList<String> a;
     private FirebaseAuth mAuth;
-    List<usernotes> allnotesList;
+    List<usernotesModel> allnotesList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
-        t=findViewById(R.id.t);
-        f=findViewById(R.id.fa);
+
+
+        header_txt=findViewById(R.id.header_txt);
+        fab_btn=findViewById(R.id.fab_btn);
         mAuth= FirebaseAuth.getInstance();
-        b=findViewById(R.id.but);
+        logout_btn=findViewById(R.id.logout_btn);
+        notes_listview=findViewById(R.id.notes_listview);
+
+
         pd=new ProgressDialog(this);
         pd.setTitle("Please wait");
-        l=findViewById(R.id.l);
+
+
         databaseReference= FirebaseDatabase.getInstance().getReference("USERNOTES");
-        f.setOnClickListener(new View.OnClickListener() {
+        fab_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(dash.this,addnote.class);
+                Intent i=new Intent(DashBoardActivity.this, AddNoteActivity.class);
                 startActivity(i);
 
             }
         });
+
         FirebaseUser user = mAuth.getCurrentUser();
         updateUI(user);
-        b.setOnClickListener(new View.OnClickListener() {
+        logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                Toast.makeText(dash.this,"Log out sucessfully",Toast.LENGTH_LONG).show();
-                Intent i=new Intent(dash.this,MainActivity.class);
+                Toast.makeText(DashBoardActivity.this,"Log out sucessfully",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(DashBoardActivity.this,MainActivity.class);
                 startActivity(i);
             }
         });
@@ -80,7 +92,7 @@ public class dash extends AppCompatActivity {
             String personEmail = account.getEmail();
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
-            t.setText(personEmail + "\n" + personName);
+            header_txt.setText(personEmail + "\n" + personName);
 
         }
     }
@@ -94,7 +106,7 @@ public class dash extends AppCompatActivity {
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
               for(DataSnapshot snapshot:dataSnapshot.getChildren())
               {
-                  usernotes u=snapshot.getValue(usernotes.class);
+                  usernotesModel u=snapshot.getValue(usernotesModel.class);
                   String id=u.getNoteId();
                   String dates=u.getNoteDates();
                   String desc=u.getNoteTitle();
@@ -103,8 +115,8 @@ public class dash extends AppCompatActivity {
                   pd.dismiss();
 
               }
-              ArrayAdapter arrayAdapter=new ArrayAdapter(dash.this,android.R.layout.simple_list_item_1,a);
-              l.setAdapter(arrayAdapter);
+              ArrayAdapter arrayAdapter=new ArrayAdapter(DashBoardActivity.this,android.R.layout.simple_list_item_1,a);
+               notes_listview.setAdapter(arrayAdapter);
            }
 
            @Override

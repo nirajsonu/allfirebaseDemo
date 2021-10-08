@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.service;
 
 import android.util.Log;
 import android.widget.Toast;

@@ -1,11 +1,11 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.models;
 
 import java.io.Serializable;
 
-public class usernotes implements Serializable {
+public class usernotesModel implements Serializable {
     String noteTitle="",noteDesc="",noteDates="",noteId="";
 
-    public usernotes(String noteTitle, String noteDesc, String noteDates, String noteId) {
+    public usernotesModel(String noteTitle, String noteDesc, String noteDates, String noteId) {
         this.noteTitle = noteTitle;
         this.noteDesc = noteDesc;
         this.noteDates = noteDates;
@@ -39,7 +39,7 @@ public class usernotes implements Serializable {
     public String getNoteId() {
         return noteId;
     }
-public usernotes()
+public usernotesModel()
 {
 
 }

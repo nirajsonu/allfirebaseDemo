@@ -1,4 +1,4 @@
-package com.neeraj.allfirebase;
+package com.neeraj.allfirebase.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
@@ -23,8 +23,11 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.neeraj.allfirebase.R;
 
-public class fb extends AppCompatActivity {
+public class FacebookActivity extends AppCompatActivity {
+
+
     private CallbackManager callbackManager;
     private TextView textView;
     private AccessTokenTracker accessTokenTracker;
@@ -37,11 +40,13 @@ public class fb extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fb);
+
         loginButton = (LoginButton) findViewById(R.id.login_button);
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +131,7 @@ public class fb extends AppCompatActivity {
             String url = profile.getProfilePictureUri(150, 150)
                     .toString();
 
-            Glide.with(fb.this).load(url).asBitmap()
+            Glide.with(FacebookActivity.this).load(url).asBitmap()
                     .into(new BitmapImageViewTarget(imageView) {
                         @Override
                         protected void setResource(Bitmap resource) {
