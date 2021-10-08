@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">allfirebase</string>
+    <string name="facebook_app_id">903028936776346</string>
+    <string name="fb_login_protocol_scheme">fb903028936776346</string>
+</resources>
